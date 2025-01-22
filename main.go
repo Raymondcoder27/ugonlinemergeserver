@@ -32,7 +32,7 @@ func main() {
 	// r.POST("/upload-template", controllers.UploadTemplate)
 	r.POST("/till-operator-request-float", controllers.TillOperatorRequestFloat)
 	r.POST("/branch-manager-request-float", controllers.BranchManagerRequestFloat)
-	r.GET("/templates", controllers.Templates)
+	r.POST("/branch-manager-approve-float", controllers.BranchManagerApproveFloat)
 	r.GET("/document-history", controllers.GetDocumentHistory)
 	r.GET("/logs", controllers.AutodocsLogs)
 	r.GET("/daterange-metrics", controllers.GetRangeMetrics)
