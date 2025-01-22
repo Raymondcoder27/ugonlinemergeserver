@@ -33,7 +33,7 @@ func main() {
 	r.POST("/till-operator-request-float", controllers.TillOperatorRequestFloat)
 	r.POST("/branch-manager-request-float", controllers.BranchManagerRequestFloat)
 	r.POST("/branch-manager-approve-float", controllers.BranchManagerApproveFloat)
-	r.GET("/document-history", controllers.GetDocumentHistory)
+	r.POST("agent-admin-approve-float", controllers.AgentAdminApproveFloat)
 	r.GET("/logs", controllers.AutodocsLogs)
 	r.GET("/daterange-metrics", controllers.GetRangeMetrics)
 	r.GET("failed-generations", controllers.GetFailedGenerations)
