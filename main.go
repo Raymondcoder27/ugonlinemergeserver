@@ -29,9 +29,9 @@ func main() {
 	}
 	r.Use(cors.New(config))
 
-	r.POST("/upload-template", controllers.UploadTemplate)
-	r.POST("/generate", controllers.CreateDocument, controllers.AutodocsLogs)
-	r.GET("/documents", controllers.GetDocuments)
+	// r.POST("/upload-template", controllers.UploadTemplate)
+	r.POST("/till-operator-request-float", controllers.TillOperatorRequestFloat)
+	r.POST("/branch-manager-request-float", controllers.BranchManagerRequestFloat)
 	r.GET("/templates", controllers.Templates)
 	r.GET("/document-history", controllers.GetDocumentHistory)
 	r.GET("/logs", controllers.AutodocsLogs)
