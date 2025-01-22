@@ -34,9 +34,13 @@ func main() {
 	r.POST("/branch-manager-request-float", controllers.BranchManagerRequestFloat)
 	r.POST("/branch-manager-approve-float", controllers.BranchManagerApproveFloat)
 	r.POST("agent-admin-approve-float", controllers.AgentAdminApproveFloat)
-	// r.GET("/logs", controllers.AutodocsLogs)
-	// r.GET("/daterange-metrics", controllers.GetRangeMetrics)
-	// r.GET("failed-generations", controllers.GetFailedGenerations)
+
+	//get endpoints
+	r.GET("/branch-manager-float-requests", controllers.GetBranchManagerFloatRequests)
+	r.GET("/agent-admin-float-requests", controllers.GetAgentAdminFloatRequests)
+	// r.GET("/till-operator-float-requests", controllers.GetTillOperatorFloatRequests)
+	r.GET("/branch-manager-float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)
+	r.GET("/agent-admin-float-requests/:refNumber", controllers.GetAgentAdminFloatRequest)
 
 	r.GET("/templates/preview/:refNumber", controllers.PreviewTemplate)
 	r.GET("/documents/preview/:refNumber", controllers.PreviewDocument)
