@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"example.com/facebookclone/models"
+	"example.com/ugonline/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

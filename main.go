@@ -1,9 +1,9 @@
 package main
 
 import (
-	"example/pdfgenerator/controllers"
-	"example/pdfgenerator/initializers"
-	"example/pdfgenerator/middleware"
+	"example/ugonlinemerge/controllers"
+	"example/ugonlinemerge/initializers"
+	"example/ugonlinemerge/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

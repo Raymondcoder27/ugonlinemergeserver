@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"example.com/facebookclone/initializers"
-	"example.com/facebookclone/models"
+	"example.com/ugonline/initializers"
+	"example.com/ugonline/models"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 )
