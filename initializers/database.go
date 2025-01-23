@@ -34,17 +34,17 @@ func MigrateDB() {
 	}
 
 	// Migrate the ServiceRequest model
-	if err := DB.AutoMigrate(&models.ServiceRequest{}); err != nil {
+	if err := DB.AutoMigrate(&models.CreateServiceRequest{}); err != nil {
 		log.Printf("Error migrating ServiceRequest Database: %v", err)
 	}
 
 	// Migrate the Post model
-	if err := DB.AutoMigrate(&models.Post{}); err != nil {
-		log.Printf("Error migrating Post Database: %v", err)
-	}
+	// if err := DB.AutoMigrate(&models.Post{}); err != nil {
+	// 	log.Printf("Error migrating Post Database: %v", err)
+	// }
 
 	// Migrate the User model
-	if err := DB.AutoMigrate(&models.User{}); err != nil {
+	if err := DB.AutoMigrate(&models.BackofficeUser{}); err != nil {
 		log.Printf("Error migrating User Database: %v", err)
 	}
 
