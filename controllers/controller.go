@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"example/pdfgenerator/models" // Replace with your actual models package
+	"example/ugonlinemergeserver/models" // Replace with your actual models package
 	"net/http"
 
 	"github.com/gin-gonic/gin"
