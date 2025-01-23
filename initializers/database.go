@@ -29,7 +29,15 @@ func ConnectToDB() {
 
 func MigrateDB() {
 	// Migrate the FloatRequest model
-	if err := DB.AutoMigrate(&models.FloatRequest{}); err != nil {
+	if err := DB.AutoMigrate(&models.TillOperatorFloatRequest{}); err != nil {
+		log.Printf("Error migrating FloatRequest Database: %v", err)
+	}
+
+	if err := DB.AutoMigrate(&models.BranchManagerFloatRequest{}); err != nil {
+		log.Printf("Error migrating FloatRequest Database: %v", err)
+	}
+
+	if err := DB.AutoMigrate(&models.AdminAgentFloatRequest{}); err != nil {
 		log.Printf("Error migrating FloatRequest Database: %v", err)
 	}
 
