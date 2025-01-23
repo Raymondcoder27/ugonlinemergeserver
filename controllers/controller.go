@@ -11,7 +11,7 @@ import (
 
 // TillOperatorRequestFloat handles the request for float allocation by Till Operator.
 func TillOperatorRequestFloat(c *gin.Context) {
-	var request models.FloatRequest
+	var request models.TillOperatorFloatRequest
 
 	// Bind JSON request to the FloatRequest model
 	if err := c.ShouldBindJSON(&request); err != nil {
@@ -68,7 +68,7 @@ func TillOperatorServiceRequest(c *gin.Context) {
 
 // BranchManagerRequestFloat handles the request for float allocation by Branch Manager.
 func BranchManagerRequestFloat(c *gin.Context) {
-	var request models.FloatRequest
+	var request models.BranchManagerFloatRequest
 
 	// Bind JSON request to the FloatRequest model
 	if err := c.ShouldBindJSON(&request); err != nil {
@@ -112,7 +112,7 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 
 // GetBranchManagerFloatRequests fetches all float requests for the Branch Manager.
 func GetBranchManagerFloatRequests(c *gin.Context) {
-	var requests []models.FloatRequest
+	var requests []models.TillOperatorFloatRequest
 
 	// Fetch all float requests for the branch manager
 	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
@@ -124,7 +124,7 @@ func GetBranchManagerFloatRequests(c *gin.Context) {
 }
 
 func GetTillOperatorFloatRequests(c *gin.Context) {
-	var requests []models.FloatRequest
+	var requests []models.TillOperatorFloatRequest
 
 	// Fetch all float requests for the branch manager
 	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
@@ -139,7 +139,7 @@ func GetTillOperatorFloatRequests(c *gin.Context) {
 func GetBranchManagerFloatRequest(c *gin.Context) {
 	refNumber := c.Param("refNumber")
 
-	var request models.FloatRequest
+	var request models.BranchManagerFloatRequest
 
 	// Fetch the specific float request by refNumber
 	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
@@ -154,7 +154,7 @@ func GetBranchManagerFloatRequest(c *gin.Context) {
 func AgentAdminApproveFloat(c *gin.Context) {
 	refNumber := c.Param("refNumber")
 
-	var request models.FloatRequest
+	var request models.BranchManagerFloatRequest
 
 	// Find the float request by refNumber
 	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
@@ -174,7 +174,7 @@ func AgentAdminApproveFloat(c *gin.Context) {
 
 // GetAgentAdminFloatRequests fetches all float requests for the Agent Admin.
 func GetAgentAdminFloatRequests(c *gin.Context) {
-	var requests []models.FloatRequest
+	var requests []models.AdminAgentFloatRequest
 
 	// Fetch all float requests for the agent admin
 	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
@@ -189,7 +189,7 @@ func GetAgentAdminFloatRequests(c *gin.Context) {
 func GetAgentAdminFloatRequest(c *gin.Context) {
 	refNumber := c.Param("refNumber")
 
-	var request models.FloatRequest
+	var request models.AdminAgentFloatRequest
 
 	// Fetch the specific float request by refNumber
 	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
