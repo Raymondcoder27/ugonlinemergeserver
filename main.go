@@ -47,7 +47,7 @@ func main() {
 		branchManager := authGroup.Group("/branch-manager")
 		{
 			branchManager.POST("/request-float", controllers.BranchManagerRequestFloat)
-			branchManager.POST("/approve-float-request", controllers.BranchManagerApproveFloat)
+			branchManager.POST("/approve-float-request", controllers.BranchManagerApproveFloatRequest)
 			branchManager.GET("/float-requests", controllers.GetBranchManagerFloatRequests)
 			// branchManager.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
 			branchManager.GET("/float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)

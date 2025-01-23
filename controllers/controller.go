@@ -89,10 +89,10 @@ func BranchManagerRequestFloat(c *gin.Context) {
 }
 
 // BranchManagerApproveFloat handles the approval of a float request by Branch Manager.
-func BranchManagerApproveFloat(c *gin.Context) {
+func BranchManagerApproveFloatRequest(c *gin.Context) {
 	refNumber := c.Param("refNumber")
 
-	var request models.FloatRequest
+	var request models.TillOperatorFloatRequest
 
 	// Find the float request by refNumber
 	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
