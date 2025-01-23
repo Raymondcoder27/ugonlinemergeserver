@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"example.com/ugonlinemergeserver/models"
+	"github.com/ugonlinemergeserver/models" // Correct import path for your models
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -14,40 +14,51 @@ var DB *gorm.DB
 func ConnectToDB() {
 	var err error
 
-	// dbHost := os.Getenv("DB_HOST")
-	// dbUser := os.Getenv("DB_USER")
-	// dbPassword := os.Getenv("DB_PASSWORD")
-	// dbName := os.Getenv("DB_NAME")
-
-	// dsn := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=disable", dbUser, dbPassword, dbHost, dbName)
-
-	dsn := os.Getenv("DB")
-
-	// log.Println("Connecting to database with DSN:", dsn)
+	dsn := os.Getenv("DB") // Using the database URL from the environment variable
 
 	if dsn == "" {
-		log.Fatal("Database url is not set")
+		log.Fatal("Database URL is not set") // Exit if DB URL is missing
 	}
 
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{}) // Connect to PostgreSQL using the DSN
 	if err != nil {
-		log.Printf("Failed to connect to database: %v", err)
+		log.Fatalf("Failed to connect to database: %v", err) // Log a fatal error if connection fails
 	}
 }
 
 func MigrateDB() {
-	err := DB.AutoMigrate(&models.Comment{})
-	if err != nil {
-		log.Printf("Error migrating Comment Database: %v", err)
+	// Migrate the FloatRequest model
+	if err := DB.AutoMigrate(&models.FloatRequest{}); err != nil {
+		log.Printf("Error migrating FloatRequest Database: %v", err)
 	}
 
-	err2 := DB.AutoMigrate(&models.Post{})
-	if err != nil {
-		log.Printf("Error migrating Post Database: %v", err2)
+	// Migrate the ServiceRequest model
+	if err := DB.AutoMigrate(&models.ServiceRequest{}); err != nil {
+		log.Printf("Error migrating ServiceRequest Database: %v", err)
 	}
 
-	err3 := DB.AutoMigrate(&models.User{})
-	if err != nil {
-		log.Printf("Error migrating User Database: %v", err3)
+	// Migrate the Post model
+	if err := DB.AutoMigrate(&models.Post{}); err != nil {
+		log.Printf("Error migrating Post Database: %v", err)
+	}
+
+	// Migrate the User model
+	if err := DB.AutoMigrate(&models.User{}); err != nil {
+		log.Printf("Error migrating User Database: %v", err)
+	}
+
+	// Migrate the BranchManager model
+	if err := DB.AutoMigrate(&models.BranchManager{}); err != nil {
+		log.Printf("Error migrating BranchManager Database: %v", err)
+	}
+
+	// Migrate the Agent model
+	if err := DB.AutoMigrate(&models.Agent{}); err != nil {
+		log.Printf("Error migrating Agent Database: %v", err)
+	}
+
+	// Migrate the Transaction model (if applicable to your app)
+	if err := DB.AutoMigrate(&models.Transaction{}); err != nil {
+		log.Printf("Error migrating Transaction Database: %v", err)
 	}
 }
