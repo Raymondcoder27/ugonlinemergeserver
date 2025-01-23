@@ -3,6 +3,7 @@ package main
 import (
 	"example/pdfgenerator/controllers"
 	"example/pdfgenerator/initializers"
+	"example/pdfgenerator/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,6 @@ func init() {
 }
 
 func main() {
-
 	r := gin.Default()
 
 	// Set up CORS middleware
@@ -29,27 +29,36 @@ func main() {
 	}
 	r.Use(cors.New(config))
 
-	// r.POST("/upload-template", controllers.UploadTemplate)
-	r.POST("/till-operator-request-float", controllers.TillOperatorRequestFloat)
-	r.POST("/branch-manager-request-float", controllers.BranchManagerRequestFloat)
-	r.POST("/branch-manager-approve-float", controllers.BranchManagerApproveFloat)
-	r.POST("agent-admin-approve-float", controllers.AgentAdminApproveFloat)
+	// Define route groups for the 3 dashboards
+	// Auth group for protected routes
+	authGroup := r.Group("/", middleware.RequireAuth)
+	{
+		// Till Operator Dashboard
+		tillOperator := authGroup.Group("/till-operator")
+		{
+			tillOperator.POST("/request-float", controllers.TillOperatorRequestFloat)
+			tillOperator.POST("/service-request", controllers.TillOperatorServiceRequest)
+			// Add more Till Operator-specific routes here as needed
+		}
 
-	//get endpoints
-	r.GET("/branch-manager-float-requests", controllers.GetBranchManagerFloatRequests)
-	r.GET("/agent-admin-float-requests", controllers.GetAgentAdminFloatRequests)
-	// r.GET("/till-operator-float-requests", controllers.GetTillOperatorFloatRequests)
-	r.GET("/branch-manager-float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)
-	r.GET("/agent-admin-float-requests/:refNumber", controllers.GetAgentAdminFloatRequest)
+		// Branch Manager Dashboard
+		branchManager := authGroup.Group("/branch-manager")
+		{
+			branchManager.POST("/request-float", controllers.BranchManagerRequestFloat)
+			branchManager.POST("/approve-float", controllers.BranchManagerApproveFloat)
+			branchManager.GET("/float-requests", controllers.GetBranchManagerFloatRequests)
+			branchManager.GET("/float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)
+		}
 
-	r.GET("/templates/preview/:refNumber", controllers.PreviewTemplate)
-	r.GET("/documents/preview/:refNumber", controllers.PreviewDocument)
+		// Agent Admin Dashboard
+		agentAdmin := authGroup.Group("/agent-admin")
+		{
+			agentAdmin.POST("/approve-float", controllers.AgentAdminApproveFloat)
+			agentAdmin.GET("/float-requests", controllers.GetAgentAdminFloatRequests)
+			agentAdmin.GET("/float-requests/:refNumber", controllers.GetAgentAdminFloatRequest)
+		}
+	}
 
-	r.DELETE("/templates/:refNumber", controllers.DeleteTemplate)
-	r.DELETE("/documents/:refNumber", controllers.DeleteDocument)
-	r.DELETE("/clear-logs", controllers.DeleteAllLogs)
-
-	//endpoint to log the html before it turns to pdf
-	r.POST("/htmlbeforepdf", controllers.HtmlBeforePDF)
-	r.Run()
+	// Start the server
+	r.Run(":8080") // You can customize the port as needed
 }
