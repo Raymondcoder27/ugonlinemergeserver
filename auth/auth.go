@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"example.com/ugonline/initializers"
-	"example.com/ugonline/models"
+	"example.com/ugonlinemergeserver/initializers"
+	"example.com/ugonlinemergeserver/models"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
