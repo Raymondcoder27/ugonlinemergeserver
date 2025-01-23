@@ -3,35 +3,35 @@ package models
 import "time"
 
 // Transaction represents a financial transaction.
-type Transaction struct {
-	ID             uint      `json:"id" gorm:"primaryKey"`
-	TrackingNumber string    `json:"trackingNumber" gorm:"not null"`
-	Service        string    `json:"service" gorm:"not null"`
-	Provider       string    `json:"provider" gorm:"not null"`
-	Till           string    `json:"till" gorm:"not null"`
-	Fee            float64   `json:"fee" gorm:"not null"`
-	Date           time.Time `json:"date" gorm:"not null"`
-	Status         string    `json:"status" gorm:"not null"` // e.g., "success", "failed", "pending"
-}
+// type Transaction struct {
+// 	ID             uint      `json:"id" gorm:"primaryKey"`
+// 	TrackingNumber string    `json:"trackingNumber" gorm:"not null"`
+// 	Service        string    `json:"service" gorm:"not null"`
+// 	Provider       string    `json:"provider" gorm:"not null"`
+// 	Till           string    `json:"till" gorm:"not null"`
+// 	Fee            float64   `json:"fee" gorm:"not null"`
+// 	Date           time.Time `json:"date" gorm:"not null"`
+// 	Status         string    `json:"status" gorm:"not null"` // e.g., "success", "failed", "pending"
+// }
 
-// FloatRequest represents a request for float allocation.
-type FloatRequest struct {
-	ID          uint      `json:"id" gorm:"primaryKey"`
-	RequestDate time.Time `json:"requestDate" gorm:"not null"`
-	Amount      float64   `json:"amount" gorm:"not null"`
-	Status      string    `json:"status" gorm:"not null"` // e.g., "pending", "approved", "rejected"
-	Branch      string    `json:"branch" gorm:"not null"`
-	ApprovedBy  *string   `json:"approvedBy"` // Null if not approved
-}
+// // FloatRequest represents a request for float allocation.
+// type FloatRequest struct {
+// 	ID          uint      `json:"id" gorm:"primaryKey"`
+// 	RequestDate time.Time `json:"requestDate" gorm:"not null"`
+// 	Amount      float64   `json:"amount" gorm:"not null"`
+// 	Status      string    `json:"status" gorm:"not null"` // e.g., "pending", "approved", "rejected"
+// 	Branch      string    `json:"branch" gorm:"not null"`
+// 	ApprovedBy  *string   `json:"approvedBy"` // Null if not approved
+// }
 
 // FloatLedger represents the ledger for float allocations and usage.
-type FloatLedger struct {
-	ID          uint      `json:"id" gorm:"primaryKey"`
-	Date        time.Time `json:"date" gorm:"not null"`
-	Description string    `json:"description" gorm:"not null"` // e.g., "Recharge", "Branch X"
-	Amount      float64   `json:"amount" gorm:"not null"`
-	Balance     float64   `json:"balance" gorm:"not null"`
-}
+// type FloatLedger struct {
+// 	ID          uint      `json:"id" gorm:"primaryKey"`
+// 	Date        time.Time `json:"date" gorm:"not null"`
+// 	Description string    `json:"description" gorm:"not null"` // e.g., "Recharge", "Branch X"
+// 	Amount      float64   `json:"amount" gorm:"not null"`
+// 	Balance     float64   `json:"balance" gorm:"not null"`
+// }
 
 // BackofficeUser represents a user in the back office system.
 type BackofficeUser struct {
