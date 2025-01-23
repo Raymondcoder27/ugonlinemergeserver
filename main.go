@@ -3,7 +3,6 @@ package main
 import (
 	"example.com/ugonlinemergeserver/controllers"
 	"example.com/ugonlinemergeserver/initializers"
-	"example.com/ugonlinemergeserver/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -31,7 +30,9 @@ func main() {
 
 	// Define route groups for the 3 dashboards
 	// Auth group for protected routes
-	authGroup := r.Group("/", middleware.RequireAuth)
+	// authGroup := r.Group("/", middleware.RequireAuth)
+	authGroup := r.Group("/")
+
 	{
 		// Till Operator Dashboard
 		tillOperator := authGroup.Group("/till-operator")
