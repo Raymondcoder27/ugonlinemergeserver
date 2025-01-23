@@ -107,6 +107,18 @@ func GetBranchManagerFloatRequests(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": requests})
 }
 
+func GetTillOperatorFloatRequests(c *gin.Context) {
+	var requests []models.FloatRequest
+
+	// Fetch all float requests for the branch manager
+	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": requests})
+}
+
 // GetBranchManagerFloatRequest fetches a specific float request by reference number.
 func GetBranchManagerFloatRequest(c *gin.Context) {
 	refNumber := c.Param("refNumber")

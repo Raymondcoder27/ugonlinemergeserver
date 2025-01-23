@@ -39,6 +39,7 @@ func main() {
 		{
 			tillOperator.POST("/request-float", controllers.TillOperatorRequestFloat)
 			tillOperator.POST("/service-request", controllers.TillOperatorServiceRequest)
+			tillOperator.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
 			// Add more Till Operator-specific routes here as needed
 		}
 
@@ -48,6 +49,7 @@ func main() {
 			branchManager.POST("/request-float", controllers.BranchManagerRequestFloat)
 			branchManager.POST("/approve-float", controllers.BranchManagerApproveFloat)
 			branchManager.GET("/float-requests", controllers.GetBranchManagerFloatRequests)
+			branchManager.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
 			branchManager.GET("/float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)
 		}
 
