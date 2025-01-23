@@ -50,6 +50,21 @@ func TillOperatorServiceRequest(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Service request created successfully", "data": request})
 }
 
+// tillOperator.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
+
+// GetTillOperatorFloatRequests fetches all float requests for the Till Operator.
+// func GetTillOperatorFloatRequests(c *gin.Context) {
+// 	var requests []models.FloatRequest
+
+// 	// Fetch all float requests for the till operator
+// 	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"data": requests})
+// }
+
 // BranchManagerRequestFloat handles the request for float allocation by Branch Manager.
 func BranchManagerRequestFloat(c *gin.Context) {
 	var request models.FloatRequest
