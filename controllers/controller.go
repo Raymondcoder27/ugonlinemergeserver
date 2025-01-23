@@ -1,8 +1,9 @@
 package controllers
 
 import (
-	"example/ugonlinemergeserver/models" // Replace with your actual models package
 	"net/http"
+
+	"example.com/ugonlinemergeserver/models" // Replace with your actual models package
 
 	"github.com/gin-gonic/gin"
 )

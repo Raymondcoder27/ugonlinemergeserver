@@ -1,9 +1,9 @@
 package main
 
 import (
-	"example/ugonlinemergeserver/controllers"
-	"example/ugonlinemergeserver/initializers"
-	"example/ugonlinemergeserver/middleware"
+	"example.com/ugonlinemergeserver/controllers"
+	"example.com/ugonlinemergeserver/initializers"
+	"example.com/ugonlinemergeserver/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

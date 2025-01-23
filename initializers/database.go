@@ -4,7 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/ugonlinemergeserver/models" // Correct import path for your models
+	"example.com/ugonlinemergeserver/models" // Correct import path for your models
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
