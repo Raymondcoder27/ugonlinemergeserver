@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"example.com/ugonlinemergeserver/initializers"
 	"example.com/ugonlinemergeserver/models" // Replace with your actual models package
 
 	"github.com/gin-gonic/gin"
@@ -22,7 +23,7 @@ func TillOperatorRequestFloat(c *gin.Context) {
 	request.Status = "pending"
 
 	// Save request to database
-	if err := db.Create(&request).Error; err != nil {
+	if err := initializers.DB.Create(&request).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create float request"})
 		return
 	}
@@ -32,7 +33,7 @@ func TillOperatorRequestFloat(c *gin.Context) {
 
 // TillOperatorServiceRequest handles the service request by the Till Operator.
 func TillOperatorServiceRequest(c *gin.Context) {
-	var request models.ServiceRequest
+	var request models.CreateServiceRequest
 
 	// Bind JSON request to the ServiceRequest model
 	if err := c.ShouldBindJSON(&request); err != nil {
@@ -41,7 +42,7 @@ func TillOperatorServiceRequest(c *gin.Context) {
 	}
 
 	// Create the service request
-	if err := db.Create(&request).Error; err != nil {
+	if err := initializers.DB.Create(&request).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create service request"})
 		return
 	}
@@ -63,7 +64,7 @@ func BranchManagerRequestFloat(c *gin.Context) {
 	request.Status = "pending"
 
 	// Save request to database
-	if err := db.Create(&request).Error; err != nil {
+	if err := initializers.DB.Create(&request).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create float request"})
 		return
 	}
@@ -78,14 +79,14 @@ func BranchManagerApproveFloat(c *gin.Context) {
 	var request models.FloatRequest
 
 	// Find the float request by refNumber
-	if err := db.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
 
 	// Approve the float request
 	request.Status = "approved"
-	if err := db.Save(&request).Error; err != nil {
+	if err := initializers.DB.Save(&request).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
 		return
 	}
@@ -98,7 +99,7 @@ func GetBranchManagerFloatRequests(c *gin.Context) {
 	var requests []models.FloatRequest
 
 	// Fetch all float requests for the branch manager
-	if err := db.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
 		return
 	}
@@ -113,7 +114,7 @@ func GetBranchManagerFloatRequest(c *gin.Context) {
 	var request models.FloatRequest
 
 	// Fetch the specific float request by refNumber
-	if err := db.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
@@ -128,14 +129,14 @@ func AgentAdminApproveFloat(c *gin.Context) {
 	var request models.FloatRequest
 
 	// Find the float request by refNumber
-	if err := db.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
 
 	// Approve the float request
 	request.Status = "approved"
-	if err := db.Save(&request).Error; err != nil {
+	if err := initializers.DB.Save(&request).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
 		return
 	}
@@ -148,7 +149,7 @@ func GetAgentAdminFloatRequests(c *gin.Context) {
 	var requests []models.FloatRequest
 
 	// Fetch all float requests for the agent admin
-	if err := db.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
 		return
 	}
@@ -163,7 +164,7 @@ func GetAgentAdminFloatRequest(c *gin.Context) {
 	var request models.FloatRequest
 
 	// Fetch the specific float request by refNumber
-	if err := db.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}

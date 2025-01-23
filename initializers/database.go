@@ -54,7 +54,7 @@ func MigrateDB() {
 	}
 
 	// Migrate the Agent model
-	if err := DB.AutoMigrate(&models.Agent{}); err != nil {
+	if err := DB.AutoMigrate(&models.TillOperator{}); err != nil {
 		log.Printf("Error migrating Agent Database: %v", err)
 	}
 

@@ -27,9 +27,9 @@ func Signup(c *gin.Context) {
 		return
 	}
 
-	placeholderImagePath := "public/user-placeholder.png"
+	// placeholderImagePath := "public/user-placeholder.png"
 
-	user := models.User{Name: body.Name, Email: body.Email, Password: string(hash), Image: placeholderImagePath}
+	user := models.BackofficeUser{Name: body.Name, Email: body.Email, Password: string(hash)}
 	result := initializers.DB.Create(&user)
 	if result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Failed to create user."})
@@ -102,7 +102,7 @@ func Login(c *gin.Context) {
 	}
 
 	// Look up user by email
-	var user models.User
+	var user models.BackofficeUser
 	initializers.DB.First(&user, "email = ?", body.Email)
 
 	if user.ID == 0 {
