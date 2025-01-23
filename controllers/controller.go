@@ -21,6 +21,7 @@ func TillOperatorRequestFloat(c *gin.Context) {
 
 	// Set default status to "Pending"
 	request.Status = "pending"
+	request.Till = "Till 1"
 
 	// Save request to database
 	if err := initializers.DB.Create(&request).Error; err != nil {
