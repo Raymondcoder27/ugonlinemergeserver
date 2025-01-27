@@ -95,7 +95,7 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 	var request models.TillOperatorFloatRequest
 
 	// Find the float request by refNumber
-	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ID = ?", refNumber).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
@@ -142,7 +142,7 @@ func GetBranchManagerFloatRequest(c *gin.Context) {
 	var request models.BranchManagerFloatRequest
 
 	// Fetch the specific float request by refNumber
-	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ID = ?", refNumber).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
@@ -157,7 +157,7 @@ func AgentAdminApproveFloat(c *gin.Context) {
 	var request models.BranchManagerFloatRequest
 
 	// Find the float request by refNumber
-	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ID = ?", refNumber).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
@@ -192,7 +192,7 @@ func GetAgentAdminFloatRequest(c *gin.Context) {
 	var request models.AdminAgentFloatRequest
 
 	// Fetch the specific float request by refNumber
-	if err := initializers.DB.Where("ref_number = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ID = ?", refNumber).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}

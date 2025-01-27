@@ -3,7 +3,7 @@ package models
 import "time"
 
 type TillOperatorFloatRequest struct {
-	ID uint `gorm:"primaryKey"`
+	// ID uint `gorm:"primaryKey"`
 	// Amount    float64
 	Amount    int       `json:"amount" gorm:"not null"`
 	Status    string    `json:"status" gorm:"not null"` // e.g., "Allocated", "Pending", "Failed"
@@ -12,7 +12,7 @@ type TillOperatorFloatRequest struct {
 }
 
 type BranchManagerFloatRequest struct {
-	ID uint `gorm:"primaryKey"`
+	// ID uint `gorm:"primaryKey"`
 	// Amount    float64
 	Amount    int       `json:"amount" gorm:"not null"`
 	Status    string    `json:"status" gorm:"not null"` // e.g., "Allocated", "Pending", "Failed"
@@ -21,7 +21,7 @@ type BranchManagerFloatRequest struct {
 }
 
 type AdminAgentFloatRequest struct {
-	ID uint `gorm:"primaryKey"`
+	// ID uint `gorm:"primaryKey"`
 	// Amount    float64
 	Amount    int       `json:"amount" gorm:"not null"`
 	Status    string    `json:"status" gorm:"not null"` // e.g., "Allocated", "Pending", "Failed"
