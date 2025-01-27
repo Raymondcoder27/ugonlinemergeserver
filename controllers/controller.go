@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"strconv"
 
 	"example.com/ugonlinemergeserver/initializers"
 	"example.com/ugonlinemergeserver/models" // Replace with your actual models package
@@ -89,13 +90,43 @@ func BranchManagerRequestFloat(c *gin.Context) {
 }
 
 // BranchManagerApproveFloat handles the approval of a float request by Branch Manager.
+// func BranchManagerApproveFloatRequest(c *gin.Context) {
+// 	refNumber := c.Param("id")
+
+// 	var request models.TillOperatorFloatRequest
+
+// 	// Find the float request by refNumber
+// 	if err := initializers.DB.Where("ID = ?", refNumber).First(&request).Error; err != nil {
+// 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
+// 		return
+// 	}
+
+// 	// Approve the float request
+// 	request.Status = "approved"
+// 	if err := initializers.DB.Save(&request).Error; err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
+// }
+
+// BranchManagerApproveFloatRequest handles the approval of a float request by Branch Manager.
 func BranchManagerApproveFloatRequest(c *gin.Context) {
-	refNumber := c.Param("refNumber")
+	// Extract the "id" parameter from the URL
+	refNumber := c.Param("id")
+
+	// Validate and convert the ID to an integer
+	id, err := strconv.ParseInt(refNumber, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
+		return
+	}
 
 	var request models.TillOperatorFloatRequest
 
-	// Find the float request by refNumber
-	if err := initializers.DB.Where("ID = ?", refNumber).First(&request).Error; err != nil {
+	// Find the float request by ID
+	if err := initializers.DB.Where("ID = ?", id).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
@@ -107,6 +138,7 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 		return
 	}
 
+	// Return success response
 	c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
 }
 
