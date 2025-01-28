@@ -114,10 +114,10 @@ func BranchManagerRequestFloat(c *gin.Context) {
 // BranchManagerApproveFloatRequest handles the approval of a float request by Branch Manager.
 func BranchManagerApproveFloatRequest(c *gin.Context) {
 	// Extract the "id" parameter from the URL
-	refNumber := c.Param("id")
+	requestId := c.Param("id")
 
 	// Validate and convert the ID to an integer
-	id, err := strconv.ParseInt(refNumber, 10, 64)
+	id, err := strconv.ParseInt(requestId, 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
 		return
@@ -137,6 +137,18 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
 		return
 	}
+
+	//save updated record to floatrequests db
+	//inserting delete request into logs table
+	// if err := initializers.DB.Create(&models.TillOperatorFloatRequest{
+	// 	Amount:    request.Amount,
+	// 	CreatedAt: request.CreatedAt,
+	// 	Till:      request.Till,
+	// 	Status:    request.Status,
+	// }).Error; err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"message": "Error saving document metadata in database: " + err.Error()})
+	// 	return
+	// }
 
 	// Return success response
 	c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
