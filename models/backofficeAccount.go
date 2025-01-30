@@ -12,3 +12,8 @@ type BackofficeAccount struct {
 	Till     string `json:"till" gorm:""`   // e.g., "Till 1"
 	Status   string `json:"status" gorm:""` // e.g., "Active", "Inactive"
 }
+
+type AllocateBranchManager struct {
+	BranchID  uint `json:"branchId" gorm:""`
+	ManagerID uint `json:"managerId" gorm:""`
+}
