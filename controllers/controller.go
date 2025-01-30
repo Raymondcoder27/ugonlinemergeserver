@@ -353,8 +353,8 @@ func GetBranches(c *gin.Context) {
 //   }
 
 // AssignBranchManager assigns a branch manager to a branch using the manager's ID, updates the manager's branch, and updates the branch's manager.
-func AllocateManager(c *gin.Context) {
-	var request models.AllocateManager
+func AllocateBranchManager(c *gin.Context) {
+	var request models.AllocateBranchManager
 
 	// Bind JSON request to the FloatRequest model
 	if err := c.ShouldBindJSON(&request); err != nil {
