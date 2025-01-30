@@ -179,7 +179,7 @@ func CreateBranch(c *gin.Context) {
 // agentAdmin.GET("/create-back-office-account", controllers.CreateBackOfficeAccount)
 
 func CreateBackOfficeAccount(c *gin.Context) {
-	var request models.BackOfficeAccount
+	var request models.BackofficeAccount
 
 	// Bind JSON request to the FloatRequest model
 	if err := c.ShouldBindJSON(&request); err != nil {
