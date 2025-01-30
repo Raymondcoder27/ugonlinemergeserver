@@ -17,3 +17,14 @@ type AllocateBranchManager struct {
 	BranchID  uint `json:"branchId" gorm:""`
 	ManagerID uint `json:"managerId" gorm:""`
 }
+
+type BranchManagers struct {
+	BranchID  uint              `json:"branchId" gorm:""`
+	ManagerID uint              `json:"managerId" gorm:""`
+	Branch    Branch            `json:"branch" gorm:"foreignKey:BranchID"`
+	Manager   BackofficeAccount `json:"manager" gorm:"foreignKey:ManagerID"`
+	firstName string            `json:"firstName" gorm:""`
+	lastName  string            `json:"lastName" gorm:""`
+	Email     string            `json:"email" gorm:""`
+	Phone     string            `json:"phone" gorm:""`
+}
