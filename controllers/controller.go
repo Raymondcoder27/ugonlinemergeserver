@@ -155,7 +155,7 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 }
 
 func CreateBranch(c *gin.Context) {
-	var request models.CreateBranch
+	var request models.Branch
 
 	// Bind JSON request to the FloatRequest model
 	if err := c.ShouldBindJSON(&request); err != nil {

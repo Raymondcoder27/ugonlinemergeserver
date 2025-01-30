@@ -51,6 +51,11 @@ func MigrateDB() {
 	// 	log.Printf("Error migrating Post Database: %v", err)
 	// }
 
+	// Migrate the Post model
+	if err := DB.AutoMigrate(&models.Branch{}); err != nil {
+		log.Printf("Error migrating Branch Database: %v", err)
+	}
+
 	// Migrate the User model
 	if err := DB.AutoMigrate(&models.BackofficeUser{}); err != nil {
 		log.Printf("Error migrating User Database: %v", err)
