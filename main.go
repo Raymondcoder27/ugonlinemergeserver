@@ -57,6 +57,9 @@ func main() {
 		// Agent Admin Dashboard
 		agentAdmin := authGroup.Group("/agent-admin")
 		{
+			agentAdmin.GET("/services", controllers.GetAgentAdminFloatRequests)
+			agentAdmin.POST("/create-branch", controllers.CreateBranch)
+			agentAdmin.GET("/back-office-accounts", controllers.GetBackOfficeAccounts)
 			agentAdmin.POST("/approve-float", controllers.AgentAdminApproveFloat)
 			agentAdmin.GET("/float-requests", controllers.GetAgentAdminFloatRequests)
 			agentAdmin.GET("/float-requests/:refNumber", controllers.GetAgentAdminFloatRequest)

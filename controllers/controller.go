@@ -154,6 +154,34 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
 }
 
+func CreateBranch(c *gin.Context) {
+	var request models.CreateBranch
+
+	// Bind JSON request to the FloatRequest model
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Set default status to "Pending"
+	// request.Status = "pending"
+	// request.Till = "Till 1"
+
+	// Save request to database
+	if err := initializers.DB.Create(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create float request"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Branch created successfully", "data": request})
+}
+
+func GetBackOfficeAccounts(c *gin.Context) {
+
+}
+
+// agentAdmin.POST("/create-branch", controllers.CreateBranch)
+
 // GetBranchManagerFloatRequests fetches all float requests for the Branch Manager.
 func GetBranchManagerFloatRequests(c *gin.Context) {
 	var requests []models.TillOperatorFloatRequest
