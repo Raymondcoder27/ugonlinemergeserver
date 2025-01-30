@@ -303,6 +303,78 @@ func GetBranches(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": requests})
 }
 
+// func AssignBranchManager(c *gin.Context) {
+// 	var request models.AssignBranchManager
+
+// 	// Bind JSON request to the FloatRequest model
+// 	if err := c.ShouldBindJSON(&request); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	// Set default status to "Pending"
+// 	// request.Status = "pending"
+// 	// request.Till = "Till 1"
+
+// 	// Save request to database
+// 	if err := initializers.DB.Create(&request).Error; err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create branch manager assignment"})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"message": "Branch manager assigned successfully", "data": request})
+// }
+
+//  // allocate manager to a branch using managerId
+//  const allocateManager = (payload: AllocateManager) => {
+//     managerAllocations.value.push({
+//       id: managerAllocations.value.length + 1,
+//       dateAssigned: new Date().toISOString(),
+//       branch: payload.branchId,
+//       manager: payload.managerId,
+//       status: "Assigned"
+//     });
+
+//     // Update the manager's branch
+//     const manager = managerAccounts.value.find((manager) => manager.id === payload.managerId);
+//     if (manager) {
+//       manager.branch = payload.branchId;
+//       localStorageManagerAccount.value = manager; // Update the local storage variable
+//       // }
+//     }
+
+//     // Update the branch's manager
+//     const branch = branches?.value.find((branch) => branch.id === payload.branchId);
+//     if (branch) {
+//       branch.manager = payload.managerId;
+//     }
+
+//     saveManagerToLocalStorage();
+//   }
+
+// AssignBranchManager assigns a branch manager to a branch using the manager's ID, updates the manager's branch, and updates the branch's manager.
+func AllocateManager(c *gin.Context) {
+	var request models.AllocateManager
+
+	// Bind JSON request to the FloatRequest model
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Set default status to "Pending"
+	// request.Status = "pending"
+	// request.Till = "Till 1"
+
+	// Save request to database
+	if err := initializers.DB.Create(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create branch manager assignment"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Branch manager assigned successfully", "data": request})
+}
+
 func GetBranchManagerAccounts(c *gin.Context) {
 	var requests []models.BackofficeAccount
 
