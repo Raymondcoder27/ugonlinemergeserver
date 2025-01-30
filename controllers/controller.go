@@ -257,6 +257,18 @@ func GetAgentAdminFloatRequests(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": requests})
 }
 
+// GetAgentAdminFloatRequests fetches all float requests for the Agent Admin.
+func GetBranches(c *gin.Context) {
+	var requests []models.Branch
+	// Fetch all float requests for the agent admin
+	if err := initializers.DB.Find(&requests).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch branches"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": requests})
+}
+
 // GetAgentAdminFloatRequest fetches a specific float request by reference number.
 func GetAgentAdminFloatRequest(c *gin.Context) {
 	refNumber := c.Param("refNumber")

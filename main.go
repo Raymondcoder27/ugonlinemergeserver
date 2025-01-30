@@ -63,6 +63,7 @@ func main() {
 			agentAdmin.POST("/approve-float", controllers.AgentAdminApproveFloat)
 			agentAdmin.GET("/float-requests", controllers.GetAgentAdminFloatRequests)
 			agentAdmin.GET("/float-requests/:refNumber", controllers.GetAgentAdminFloatRequest)
+			agentAdmin.GET("/branches", controllers.GetBranches)
 		}
 	}
 
