@@ -6,3 +6,5 @@ type Branch struct {
 	Name string `json:"name" gorm:"unique;not null"` // e.g., "Till 1"
 	// Description string `json:"description" gorm:"not null"` // e.g., "Active", "Inactive"
 }
+
+//id should be
