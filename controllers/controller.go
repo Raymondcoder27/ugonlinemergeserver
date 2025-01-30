@@ -8,6 +8,7 @@ import (
 	"example.com/ugonlinemergeserver/models" // Replace with your actual models package
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 // TillOperatorRequestFloat handles the request for float allocation by Till Operator.
@@ -163,13 +164,25 @@ func CreateBranch(c *gin.Context) {
 		return
 	}
 
+	// id := uuid.New().String()
+	id := uuid.New().String()
+
 	// Set default status to "Pending"
 	// request.Status = "pending"
 	// request.Till = "Till 1"
 
 	// Save request to database
-	if err := initializers.DB.Create(&request).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create branch"})
+	// if err := initializers.DB.Create(&request).Error; err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create branch"})
+	// 	return
+	// }
+
+	// save request to database replacing the id with the generated uuid
+	if err := initializers.DB.Create(&models.Branch{
+		ID:   id,
+		Name: request.Name,
+	}).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
 
