@@ -1,7 +1,7 @@
 package models
 
-// BackofficeUser represents a user who manages back-office operations.
-type BackofficeUser struct {
+// BackofficeAccount represents a user who manages back-office operations.
+type BackofficeAccount struct {
 	ID       uint   `json:"id" gorm:"primaryKey"`
 	Username string `json:"username" gorm:"unique;not null"`
 	FullName string `json:"fullName" gorm:"not null"`

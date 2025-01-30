@@ -47,7 +47,7 @@ func RequireAuth(c *gin.Context) {
 		}
 
 		// Find the user with the token sub
-		var user models.BackofficeUser
+		var user models.BackofficeAccount
 		initializers.DB.First(&user, claims["sub"])
 
 		if user.ID == 0 {
