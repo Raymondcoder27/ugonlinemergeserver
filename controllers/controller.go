@@ -202,7 +202,15 @@ func CreateBackOfficeAccount(c *gin.Context) {
 }
 
 func GetBackOfficeAccounts(c *gin.Context) {
+	var requests []models.BackofficeAccount
 
+	// Fetch all float requests for the agent admin
+	if err := initializers.DB.Find(&requests).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch back office accounts"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": requests})
 }
 
 // agentAdmin.POST("/create-branch", controllers.CreateBranch)
