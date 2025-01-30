@@ -193,7 +193,8 @@ func CreateBackOfficeAccount(c *gin.Context) {
 
 	// Save request to database
 	if err := initializers.DB.Create(&request).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create back office account"})
+		// c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create back office account"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
 

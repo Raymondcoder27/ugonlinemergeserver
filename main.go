@@ -60,7 +60,7 @@ func main() {
 			agentAdmin.GET("/services", controllers.GetAgentAdminFloatRequests)
 			agentAdmin.POST("/create-branch", controllers.CreateBranch)
 			agentAdmin.GET("/back-office-accounts", controllers.GetBackOfficeAccounts)
-			agentAdmin.GET("/create-back-office-account", controllers.CreateBackOfficeAccount)
+			agentAdmin.POST("/create-back-office-account", controllers.CreateBackOfficeAccount)
 			agentAdmin.POST("/approve-float", controllers.AgentAdminApproveFloat)
 			agentAdmin.GET("/float-requests", controllers.GetAgentAdminFloatRequests)
 			agentAdmin.GET("/float-requests/:refNumber", controllers.GetAgentAdminFloatRequest)
