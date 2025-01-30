@@ -169,11 +169,35 @@ func CreateBranch(c *gin.Context) {
 
 	// Save request to database
 	if err := initializers.DB.Create(&request).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create float request"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create branch"})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Branch created successfully", "data": request})
+}
+
+// agentAdmin.GET("/create-back-office-account", controllers.CreateBackOfficeAccount)
+
+func CreateBackOfficeAccount(c *gin.Context) {
+	var request models.BackOfficeAccount
+
+	// Bind JSON request to the FloatRequest model
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Set default status to "Pending"
+	// request.Status = "pending"
+	// request.Till = "Till 1"
+
+	// Save request to database
+	if err := initializers.DB.Create(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create back office account"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Back office account created successfully", "data": request})
 }
 
 func GetBackOfficeAccounts(c *gin.Context) {
@@ -266,7 +290,12 @@ func GetBranches(c *gin.Context) {
 		return
 	}
 
+	// c.JSON(http.StatusOK, gin.H{"data": requests})
 	c.JSON(http.StatusOK, gin.H{"data": requests})
+}
+
+func GetBranchManagerAccounts(c *gin.Context) {
+
 }
 
 // GetAgentAdminFloatRequest fetches a specific float request by reference number.
