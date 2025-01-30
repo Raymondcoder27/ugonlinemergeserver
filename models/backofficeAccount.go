@@ -23,8 +23,8 @@ type BranchManagers struct {
 	ManagerID uint              `json:"managerId" gorm:""`
 	Branch    Branch            `json:"branch" gorm:"foreignKey:BranchID"`
 	Manager   BackofficeAccount `json:"manager" gorm:"foreignKey:ManagerID"`
-	firstName string            `json:"firstName" gorm:""`
-	lastName  string            `json:"lastName" gorm:""`
+	FirstName string            `json:"firstName" gorm:""`
+	LastName  string            `json:"lastName" gorm:""`
 	Email     string            `json:"email" gorm:""`
 	Phone     string            `json:"phone" gorm:""`
 }
