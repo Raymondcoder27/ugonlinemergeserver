@@ -41,6 +41,16 @@ func main() {
 			tillOperator.POST("/service-request", controllers.TillOperatorServiceRequest)
 			tillOperator.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
 			// Add more Till Operator-specific routes here as needed
+			//{{host}}/till-operator2-float-ledgers
+			tillOperator.GET("/float-requests/:refNumber", controllers.GetTillOperatorFloatRequest)
+			tillOperator.GET("/float-ledgers", controllers.GetTillOperatorFloatLedgers)
+			tillOperator.GET("/service-requests", controllers.GetTillOperatorServiceRequests)
+			tillOperator.GET("/service-requests/:refNumber", controllers.GetTillOperatorServiceRequest)
+			//get till operator float ledgers
+			tillOperator.GET("/float-ledgers/:refNumber", controllers.GetTillOperatorFloatLedger)
+			tillOperator.GET("/float-ledgers", controllers.GetTillOperatorFloatLedgers)
+			tillOperator.PUT("/float-ledgers/:refNumber", controllers.UpdateTillOperatorFloatLedger)
+
 		}
 
 		// Branch Manager Dashboard
