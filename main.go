@@ -61,6 +61,13 @@ func main() {
 			branchManager.GET("/float-requests", controllers.GetBranchManagerFloatRequests)
 			// branchManager.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
 			branchManager.GET("/float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)
+			// branchManager.GET("/float-ledgers", controllers.GetBranchManagerFloatLedgers)
+			// branchManager.GET("/float-ledgers/:refNumber", controllers.GetBranchManagerFloatLedger)
+			// branchManager.PUT("/float-ledgers/:refNumber", controllers.UpdateBranchManagerFloatLedger)
+			// branchManager.GET("/service-requests", controllers.GetBranchManagerServiceRequests)
+			// branchManager.GET("/service-requests/:refNumber", controllers.GetBranchManagerServiceRequest)
+			// branchManager.DELETE("/till/:refNumber", controllers.DeleteTill)
+
 		}
 
 		// Agent Admin Dashboard
