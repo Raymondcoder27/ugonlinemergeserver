@@ -77,6 +77,7 @@ func main() {
 			agentAdmin.POST("/create-branch", controllers.CreateBranch)
 			agentAdmin.GET("/back-office-accounts", controllers.GetBackOfficeAccounts)
 			agentAdmin.POST("/assign-branch-manager", controllers.AllocateBranchManager)
+			agentAdmin.POST("/create-branch-manager-account", controllers.CreateBranchManagerAccount)
 			agentAdmin.POST("/create-back-office-account", controllers.CreateBackOfficeAccount)
 			agentAdmin.POST("/approve-float", controllers.AgentAdminApproveFloat)
 			agentAdmin.GET("/float-requests", controllers.GetAgentAdminFloatRequests)

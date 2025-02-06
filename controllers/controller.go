@@ -222,6 +222,42 @@ func CreateBackOfficeAccount(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Back office account created successfully", "data": request})
 }
+func CreateBranchManagerAccount(c *gin.Context) {
+	var request models.BranchManager
+
+	// Bind JSON request to the FloatRequest model
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	id := uuid.New().String()
+
+	// Set default status to "Pending"
+	// request.Status = "pending"
+	// request.Till = "Till 1"
+
+	// Save request to database
+	// if err := initializers.DB.Create(&request).Error; err != nil {
+	// 	// c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create back office account"})
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+	// 	return
+	// }
+	// save request to database replacing the id with the generated uuid
+	if err := initializers.DB.Create(&models.BranchManager{
+		ID:       id,
+		Username: request.Username,
+		FullName: request.FullName,
+		Role:     request.Role,
+		Branch:   request.Branch,
+		Status:   request.Status,
+	}).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Back office account created successfully", "data": request})
+}
 
 func GetBackOfficeAccounts(c *gin.Context) {
 	var requests []models.BackofficeAccount
