@@ -189,6 +189,48 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
 }
 
+func BranchManagerApproveFloatLedger(c *gin.Context) {
+	// Extract the "id" parameter from the URL
+	requestId := c.Param("id")
+
+	// Validate and convert the ID to an integer
+	id, err := strconv.ParseInt(requestId, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
+		return
+	}
+
+	var request models.TillOperatorFloatLedger
+
+	// Find the float request by ID
+	if err := initializers.DB.Where("ID = ?", id).First(&request).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Float ledger not found"})
+		return
+	}
+
+	// Approve the float request
+	request.Status = "approved"
+	if err := initializers.DB.Save(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float ledger"})
+		return
+	}
+
+	//save updated record to floatrequests db
+	//inserting delete request into logs table
+	// if err := initializers.DB.Create(&models.TillOperatorFloatRequest{
+	// 	Amount:    request.Amount,
+	// 	CreatedAt: request.CreatedAt,
+	// 	Till:      request.Till,
+	// 	Status:    request.Status,
+	// }).Error; err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"message": "Error saving document metadata in database: " + err.Error()})
+	// 	return
+	// }
+
+	// Return success response
+	c.JSON(http.StatusOK, gin.H{"message": "Float ledger approved", "data": request})
+}
+
 func CreateBranch(c *gin.Context) {
 	var request models.Branch
 
