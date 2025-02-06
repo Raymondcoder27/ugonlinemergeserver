@@ -34,6 +34,28 @@ func TillOperatorRequestFloat(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Float request created successfully", "data": request})
 }
 
+func AddFloatLeger(c *gin.Context) {
+	var request models.TillOperatorFloatLedger
+
+	// Bind JSON request to the FloatRequest model
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Set default status to "Pending"
+	request.Status = "pending"
+	// request.Till = "Till 1"
+
+	// Save request to database
+	if err := initializers.DB.Create(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create float request"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Float ledger record created successfully", "data": request})
+}
+
 // TillOperatorServiceRequest handles the service request by the Till Operator.
 func TillOperatorServiceRequest(c *gin.Context) {
 	var request models.CreateServiceRequest
@@ -444,7 +466,7 @@ func AllocateBranchManager(c *gin.Context) {
 }
 
 func GetBranchManagerAccounts(c *gin.Context) {
-	var requests []models.BranchManager
+	var requests []models.BranchManagers
 
 	// Fetch all float requests for the agent admin
 	if err := initializers.DB.Find(&requests).Error; err != nil {

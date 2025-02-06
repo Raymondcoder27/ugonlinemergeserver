@@ -62,7 +62,7 @@ func MigrateDB() {
 	}
 
 	// Migrate the BranchManager model
-	if err := DB.AutoMigrate(&models.BranchManager{}); err != nil {
+	if err := DB.AutoMigrate(&models.BranchManagers{}); err != nil {
 		log.Printf("Error migrating BranchManager Database: %v", err)
 	}
 
