@@ -41,6 +41,8 @@ func main() {
 			tillOperator.POST("/service-request", controllers.TillOperatorServiceRequest)
 			tillOperator.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
 			tillOperator.GET("/float-ledger", controllers.GetTillOperatorFloatLedger)
+			tillOperator.PUT("/float-requests/:requestId", controllers.UpdateTillOperatorFloatRequest)
+			tillOperator.PUT("/float-ledgers/:requestId", controllers.UpdateTillOperatorFloatLedger)
 			// Add more Till Operator-specific routes here as needed
 			//{{host}}/till-operator2-float-ledgers
 			// tillOperator.GET("/float-requests/:refNumber", controllers.GetTillOperatorFloatRequest)

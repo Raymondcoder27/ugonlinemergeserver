@@ -35,6 +35,13 @@ func TillOperatorRequestFloat(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Float request created successfully", "data": request})
 }
 
+func UpdateTillOperatorFloatRequest(c *gin.Context) {
+
+}
+func UpdateTillOperatorFloatLedger(c *gin.Context) {
+
+}
+
 func AddTillOperatorFloatLeger(c *gin.Context) {
 	var request models.TillOperatorFloatLedger
 
