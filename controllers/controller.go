@@ -214,15 +214,15 @@ func CreateBackOfficeAccount(c *gin.Context) {
 	// }
 	// save request to database replacing the id with the generated uuid
 	if err := initializers.DB.Create(&models.BackofficeAccount{
-		ID: id,
+		ID:        id,
 		FirstName: request.FirstName,
 		// MiddleName  string `json:"middleName" gorm:""`
 		LastName: request.LastName,
-		Phone: request.Phone,
-		Email: request.Email,
-		Role: request.Role,  // e.g., "Administrator", "Manager"
-		Till: request.Till  // e.g., "Till 1"
-		Status: 
+		Phone:    request.Phone,
+		Email:    request.Email,
+		Role:     request.Role, // e.g., "Administrator", "Manager"
+		Till:     request.Till, // e.g., "Till 1"
+		Status:   request.Status,
 	}).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
@@ -231,7 +231,7 @@ func CreateBackOfficeAccount(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Back office account created successfully", "data": request})
 }
 func CreateBranchManagerAccount(c *gin.Context) {
-	var request models.BranchManager
+	var request models.BranchManagers
 
 	// Bind JSON request to the FloatRequest model
 	if err := c.ShouldBindJSON(&request); err != nil {
@@ -252,19 +252,21 @@ func CreateBranchManagerAccount(c *gin.Context) {
 	// 	return
 	// }
 	// save request to database replacing the id with the generated uuid
-	if err := initializers.DB.Create(&models.BranchManager{
-		ID:       id,
-		Username: request.Username,
-		FullName: request.FullName,
-		Role:     request.Role,
-		Branch:   request.Branch,
-		Status:   request.Status,
+	if err := initializers.DB.Create(&models.BranchManagers{
+		ID:        id,
+		FirstName: request.FirstName,
+		LastName:  request.LastName,
+		Email:     request.Email,
+		// BranchID:  request.BranchID,
+		Phone:  request.Phone,
+		Branch: request.Branch,
+		// Status:    request.Status,
 	}).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Back office account created successfully", "data": request})
+	c.JSON(http.StatusOK, gin.H{"message": "Branch Manager account created successfully", "data": request})
 }
 
 func GetBackOfficeAccounts(c *gin.Context) {
@@ -442,7 +444,7 @@ func AllocateBranchManager(c *gin.Context) {
 }
 
 func GetBranchManagerAccounts(c *gin.Context) {
-	var requests []models.BackofficeAccount
+	var requests []models.BranchManager
 
 	// Fetch all float requests for the agent admin
 	if err := initializers.DB.Find(&requests).Error; err != nil {
