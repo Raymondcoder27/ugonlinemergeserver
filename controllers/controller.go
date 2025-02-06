@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"strconv"
 
 	"example.com/ugonlinemergeserver/initializers"
 	"example.com/ugonlinemergeserver/models" // Replace with your actual models package
@@ -20,6 +19,11 @@ func TillOperatorRequestFloat(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	id := uuid.New().String()
+
+	// Set default status to "Pending"
+	// request.Balance = 0
+	request.ID = id
 
 	// Set default status to "Pending"
 	request.Status = "pending"
@@ -152,16 +156,16 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 	requestId := c.Param("id")
 
 	// Validate and convert the ID to an integer
-	id, err := strconv.ParseInt(requestId, 10, 64)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
-		return
-	}
+	// id, err := strconv.ParseInt(requestId, 10, 64)
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
+	// 	return
+	// }
 
 	var request models.TillOperatorFloatRequest
 
 	// Find the float request by ID
-	if err := initializers.DB.Where("ID = ?", id).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ID = ?", requestId).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
@@ -194,16 +198,16 @@ func BranchManagerApproveFloatLedger(c *gin.Context) {
 	requestId := c.Param("id")
 
 	// Validate and convert the ID to an integer
-	id, err := strconv.ParseInt(requestId, 10, 64)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
-		return
-	}
+	// id, err := strconv.ParseInt(requestId, 10, 64)
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
+	// 	return
+	// }
 
 	var request models.TillOperatorFloatLedger
 
 	// Find the float request by ID
-	if err := initializers.DB.Where("ID = ?", id).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ID = ?", requestId).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float ledger not found"})
 		return
 	}
@@ -388,7 +392,11 @@ func GetTillOperatorFloatLedger(c *gin.Context) {
 	var requests []models.TillOperatorFloatLedger
 
 	// Fetch all float requests for the branch manager
-	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	// if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
+	// 	return
+	// }
+	if err := initializers.DB.Find(&requests).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
 		return
 	}

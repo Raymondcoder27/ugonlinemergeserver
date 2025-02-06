@@ -40,7 +40,7 @@ func main() {
 			tillOperator.POST("/request-float", controllers.TillOperatorRequestFloat)
 			tillOperator.POST("/service-request", controllers.TillOperatorServiceRequest)
 			tillOperator.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
-			tillOperator.GET("/float-ledger", controllers.GetTillOperatorFloatLedger)
+			tillOperator.GET("/float-ledgers", controllers.GetTillOperatorFloatLedger)
 			tillOperator.PUT("/float-requests/:requestId", controllers.UpdateTillOperatorFloatRequest)
 			tillOperator.PUT("/float-ledgers/:requestId", controllers.UpdateTillOperatorFloatLedger)
 			// Add more Till Operator-specific routes here as needed
@@ -62,6 +62,7 @@ func main() {
 			branchManager.POST("/request-float", controllers.BranchManagerRequestFloat)
 			// branchManager.POST("/approve-float-request", controllers.BranchManagerApproveFloatRequest)
 			branchManager.PUT("/approve-float-request/:id", controllers.BranchManagerApproveFloatRequest)
+			// branchManager.PUT("/approve-float-request/{id}", controllers.BranchManagerApproveFloatRequest)
 			branchManager.PUT("/approve-float-ledger/:id", controllers.BranchManagerApproveFloatLedger)
 			branchManager.GET("/float-requests", controllers.GetBranchManagerFloatRequests)
 			// branchManager.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
