@@ -215,6 +215,14 @@ func CreateBackOfficeAccount(c *gin.Context) {
 	// save request to database replacing the id with the generated uuid
 	if err := initializers.DB.Create(&models.BackofficeAccount{
 		ID: id,
+		FirstName: request.FirstName,
+		// MiddleName  string `json:"middleName" gorm:""`
+		LastName: request.LastName,
+		Phone: request.Phone,
+		Email: request.Email,
+		Role: request.Role,  // e.g., "Administrator", "Manager"
+		Till: request.Till  // e.g., "Till 1"
+		Status: 
 	}).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
