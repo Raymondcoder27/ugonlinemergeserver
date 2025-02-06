@@ -2,7 +2,7 @@ package models
 
 // TillOperator represents a user managing float at specific tills.
 type TillOperator struct {
-	ID       uint   `json:"id" gorm:"primaryKey"`
+	ID       string `json:"id" gorm:"primaryKey"`
 	Username string `json:"username" gorm:"unique;not null"`
 	FullName string `json:"fullName" gorm:"not null"`
 	Role     string `json:"role" gorm:"not null"`   // e.g., "Manager"

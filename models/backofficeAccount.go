@@ -2,7 +2,7 @@ package models
 
 // BackofficeAccount represents a user who manages back-office operations.
 type BackofficeAccount struct {
-	ID        uint   `json:"id" gorm:"primaryKey"`
+	ID        string `json:"id" gorm:"primaryKey"`
 	FirstName string `json:"firstName" gorm:"unique;"`
 	// MiddleName  string `json:"middleName" gorm:""`
 	LastName string `json:"lastName" gorm:""`
@@ -14,13 +14,13 @@ type BackofficeAccount struct {
 }
 
 type AllocateBranchManager struct {
-	BranchID  uint `json:"branchId" gorm:""`
-	ManagerID uint `json:"managerId" gorm:""`
+	BranchID  string `json:"branchId" gorm:""`
+	ManagerID string `json:"managerId" gorm:""`
 }
 
 type BranchManagers struct {
-	BranchID  uint              `json:"branchId" gorm:""`
-	ManagerID uint              `json:"managerId" gorm:""`
+	BranchID  string            `json:"branchId" gorm:""`
+	ManagerID string            `json:"managerId" gorm:""`
 	Branch    Branch            `json:"branch" gorm:"foreignKey:BranchID"`
 	Manager   BackofficeAccount `json:"manager" gorm:"foreignKey:ManagerID"`
 	FirstName string            `json:"firstName" gorm:""`

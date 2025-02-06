@@ -200,13 +200,22 @@ func CreateBackOfficeAccount(c *gin.Context) {
 		return
 	}
 
+	id := uuid.New().String()
+
 	// Set default status to "Pending"
 	// request.Status = "pending"
 	// request.Till = "Till 1"
 
 	// Save request to database
-	if err := initializers.DB.Create(&request).Error; err != nil {
-		// c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create back office account"})
+	// if err := initializers.DB.Create(&request).Error; err != nil {
+	// 	// c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create back office account"})
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+	// 	return
+	// }
+	// save request to database replacing the id with the generated uuid
+	if err := initializers.DB.Create(&models.BackofficeAccount{
+		ID: id,
+	}).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}

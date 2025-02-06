@@ -4,7 +4,7 @@ import "time"
 
 // Service represents a service offered by the Till Operator system.
 type Service struct {
-	ID          uint      `json:"id" gorm:"primaryKey"`
+	ID          string    `json:"id" gorm:"primaryKey"`
 	Name        string    `json:"name" gorm:"not null"`
 	Description string    `json:"description" gorm:"not null"`
 	Provider    string    `json:"provider" gorm:"not null"` // The provider of the service
@@ -15,8 +15,8 @@ type Service struct {
 
 // ServiceSpecification represents detailed specifications of a service.
 type ServiceSpecification struct {
-	ID        uint      `json:"id" gorm:"primaryKey"`
-	ServiceID uint      `json:"serviceId" gorm:"not null"` // Foreign key to Service
+	ID        string    `json:"id" gorm:"primaryKey"`
+	ServiceID string    `json:"serviceId" gorm:"not null"` // Foreign key to Service
 	Key       string    `json:"key" gorm:"not null"`
 	Value     string    `json:"value" gorm:"not null"`
 	Status    string    `json:"status" gorm:"not null"` // e.g., "Enabled", "Disabled"
@@ -26,7 +26,7 @@ type ServiceSpecification struct {
 
 // ServiceResponse represents a response from service-related operations.
 type ServiceResponse struct {
-	ID      uint   `json:"id"`
+	ID      string `json:"id"`
 	Message string `json:"message"`
 	Success bool   `json:"success"`
 }
@@ -47,7 +47,7 @@ type UpdateServiceRequest struct {
 
 // CreateServiceSpecRequest represents the payload for creating a service specification.
 type CreateServiceSpecRequest struct {
-	ServiceID uint   `json:"serviceId" gorm:"not null"`
+	ServiceID string `json:"serviceId" gorm:"not null"`
 	Key       string `json:"key" gorm:"not null"`
 	Value     string `json:"value" gorm:"not null"`
 }
