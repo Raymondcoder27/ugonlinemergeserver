@@ -23,7 +23,8 @@ func TillOperatorRequestFloat(c *gin.Context) {
 
 	// Set default status to "Pending"
 	request.Status = "pending"
-	request.Till = "Till 1"
+	// request.LedgerId = request.LedgerId
+	// request.Till = "Till 1"
 
 	// Save request to database
 	if err := initializers.DB.Create(&request).Error; err != nil {
@@ -34,7 +35,7 @@ func TillOperatorRequestFloat(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Float request created successfully", "data": request})
 }
 
-func AddFloatLeger(c *gin.Context) {
+func AddTillOperatorFloatLeger(c *gin.Context) {
 	var request models.TillOperatorFloatLedger
 
 	// Bind JSON request to the FloatRequest model
@@ -43,8 +44,12 @@ func AddFloatLeger(c *gin.Context) {
 		return
 	}
 
+	id := uuid.New().String()
+
 	// Set default status to "Pending"
 	request.Status = "pending"
+	// request.Balance = 0
+	request.ID = id
 	// request.Till = "Till 1"
 
 	// Save request to database
@@ -307,7 +312,7 @@ func GetBackOfficeAccounts(c *gin.Context) {
 
 // GetBranchManagerFloatRequests fetches all float requests for the Branch Manager.
 func GetBranchManagerFloatRequests(c *gin.Context) {
-	var requests []models.TillOperatorFloatRequest
+	var requests []models.BranchManagerFloatRequest
 
 	// Fetch all float requests for the branch manager
 	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {

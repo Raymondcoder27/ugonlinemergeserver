@@ -32,6 +32,9 @@ func MigrateDB() {
 	if err := DB.AutoMigrate(&models.TillOperatorFloatRequest{}); err != nil {
 		log.Printf("Error migrating FloatRequest Database: %v", err)
 	}
+	if err := DB.AutoMigrate(&models.TillOperatorFloatLedger{}); err != nil {
+		log.Printf("Error migrating FloatRequest Database: %v", err)
+	}
 
 	if err := DB.AutoMigrate(&models.BranchManagerFloatRequest{}); err != nil {
 		log.Printf("Error migrating FloatRequest Database: %v", err)

@@ -45,7 +45,7 @@ func main() {
 			//{{host}}/till-operator2-float-ledgers
 			// tillOperator.GET("/float-requests/:refNumber", controllers.GetTillOperatorFloatRequest)
 			// tillOperator.GET("/float-ledgers", controllers.GetTillOperatorFloatLedgers)
-			tillOperator.POST("/add-float-ledger-record", controllers.AddFloatLeger)
+			tillOperator.POST("/add-float-ledger-record", controllers.AddTillOperatorFloatLeger)
 			// tillOperator.GET("/service-requests", controllers.GetTillOperatorServiceRequests)
 			// tillOperator.GET("/service-requests/:refNumber", controllers.GetTillOperatorServiceRequest)
 			// //get till operator float ledgers

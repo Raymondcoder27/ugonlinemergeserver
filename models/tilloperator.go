@@ -62,8 +62,8 @@ type UpdateServiceSpecRequest struct {
 type TillOperatorFloatLedger struct {
 	ID          string    `json:"id" gorm:"primaryKey"`
 	Description string    `json:"description" gorm:"not null"`
-	Amount      string    `json:"amount" gorm:"not null"` // The provider of the service
-	Balance     string    `json:"balance" gorm:"not null"`
+	Amount      float64   `json:"amount" gorm:"not null"` // The provider of the service
+	Balance     float64   `json:"balance" gorm:"not null"`
 	Status      string    `json:"status" gorm:"not null"` // e.g., "Active", "Inactive"
 	CreatedAt   time.Time `json:"createdAt" gorm:"autoCreateTime"`
 	UpdatedAt   time.Time `json:"updatedAt" gorm:"autoUpdateTime"`
