@@ -151,46 +151,80 @@ func BranchManagerRequestFloat(c *gin.Context) {
 // }
 
 // BranchManagerApproveFloatRequest handles the approval of a float request by Branch Manager.
+// func BranchManagerUpdateFloatRequest(c *gin.Context) {
+// 	// Extract the "id" parameter from the URL
+// 	requestId := c.Param("id")
+
+// 	// Validate and convert the ID to an integer
+// 	// id, err := strconv.ParseInt(requestId, 10, 64)
+// 	// if err != nil {
+// 	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
+// 	// 	return
+// 	// }
+
+// 	var request models.TillOperatorFloatRequest
+
+// 	// Find the float request by ID
+// 	if err := initializers.DB.Where("ID = ?", requestId).First(&request).Error; err != nil {
+// 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
+// 		return
+// 	}
+
+// 	// Approve the float request
+// 	// request.Status = "approved"
+// 	if err := initializers.DB.Save(&request).Error; err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
+// 		return
+// 	}
+
+// 	//save updated record to floatrequests db
+// 	//inserting delete request into logs table
+// 	// if err := initializers.DB.Create(&models.TillOperatorFloatRequest{
+// 	// 	Amount:    request.Amount,
+// 	// 	CreatedAt: request.CreatedAt,
+// 	// 	Till:      request.Till,
+// 	// 	Status:    request.Status,
+// 	// }).Error; err != nil {
+// 	// 	c.JSON(http.StatusInternalServerError, gin.H{"message": "Error saving document metadata in database: " + err.Error()})
+// 	// 	return
+// 	// }
+
+//		// Return success response
+//		c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
+//	}
 func BranchManagerUpdateFloatRequest(c *gin.Context) {
 	// Extract the "id" parameter from the URL
 	requestId := c.Param("id")
 
-	// Validate and convert the ID to an integer
-	// id, err := strconv.ParseInt(requestId, 10, 64)
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format. ID must be a number"})
-	// 	return
-	// }
-
+	// Fetch the float request from the database
 	var request models.TillOperatorFloatRequest
-
-	// Find the float request by ID
 	if err := initializers.DB.Where("ID = ?", requestId).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
 
-	// Approve the float request
-	// request.Status = "approved"
-	if err := initializers.DB.Save(&request).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
+	// Parse incoming JSON payload
+	var updateData struct {
+		Status string  `json:"status" binding:"required"` // Ensure status is provided
+		Amount float64 `json:"amount" binding:"required"`
+	}
+	if err := c.ShouldBindJSON(&updateData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'status' is required."})
 		return
 	}
 
-	//save updated record to floatrequests db
-	//inserting delete request into logs table
-	// if err := initializers.DB.Create(&models.TillOperatorFloatRequest{
-	// 	Amount:    request.Amount,
-	// 	CreatedAt: request.CreatedAt,
-	// 	Till:      request.Till,
-	// 	Status:    request.Status,
-	// }).Error; err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"message": "Error saving document metadata in database: " + err.Error()})
-	// 	return
-	// }
+	// Update the status
+	request.Status = updateData.Status
+	request.Amount = updateData.Amount
+
+	// Save the updated record
+	if err := initializers.DB.Save(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update float request"})
+		return
+	}
 
 	// Return success response
-	c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
+	c.JSON(http.StatusOK, gin.H{"message": "Float request updated successfully", "data": request})
 }
 
 // func BranchManagerUpdateFloatLedger(c *gin.Context) {
