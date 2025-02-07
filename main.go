@@ -61,9 +61,9 @@ func main() {
 		{
 			branchManager.POST("/request-float", controllers.BranchManagerRequestFloat)
 			// branchManager.POST("/approve-float-request", controllers.BranchManagerApproveFloatRequest)
-			branchManager.PUT("/approve-float-request/:id", controllers.BranchManagerApproveFloatRequest)
+			branchManager.PUT("/update-float-request/:id", controllers.BranchManagerUpdateFloatRequest)
 			// branchManager.PUT("/approve-float-request/{id}", controllers.BranchManagerApproveFloatRequest)
-			branchManager.PUT("/approve-float-ledger/:id", controllers.BranchManagerApproveFloatLedger)
+			branchManager.PUT("/update-float-ledger/:id", controllers.BranchManagerUpdateFloatLedger)
 			branchManager.GET("/float-requests", controllers.GetBranchManagerFloatRequests)
 			// branchManager.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
 			branchManager.GET("/float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)

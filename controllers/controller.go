@@ -151,7 +151,7 @@ func BranchManagerRequestFloat(c *gin.Context) {
 // }
 
 // BranchManagerApproveFloatRequest handles the approval of a float request by Branch Manager.
-func BranchManagerApproveFloatRequest(c *gin.Context) {
+func BranchManagerUpdateFloatRequest(c *gin.Context) {
 	// Extract the "id" parameter from the URL
 	requestId := c.Param("id")
 
@@ -171,7 +171,7 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 	}
 
 	// Approve the float request
-	request.Status = "approved"
+	// request.Status = "approved"
 	if err := initializers.DB.Save(&request).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
 		return
@@ -193,7 +193,7 @@ func BranchManagerApproveFloatRequest(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
 }
 
-func BranchManagerApproveFloatLedger(c *gin.Context) {
+func BranchManagerUpdateFloatLedger(c *gin.Context) {
 	// Extract the "id" parameter from the URL
 	requestId := c.Param("id")
 
@@ -213,7 +213,7 @@ func BranchManagerApproveFloatLedger(c *gin.Context) {
 	}
 
 	// Approve the float request
-	request.Status = "approved"
+	// request.Status = "approved"
 	if err := initializers.DB.Save(&request).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float ledger"})
 		return
