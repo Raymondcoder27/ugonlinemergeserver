@@ -519,25 +519,94 @@ func GetBranchManagerFloatRequest(c *gin.Context) {
 }
 
 // AgentAdminApproveFloat handles the approval of a float request by the Agent Admin.
-func AgentAdminApproveFloat(c *gin.Context) {
-	refNumber := c.Param("refNumber")
+// func AgentAdminApproveFloat(c *gin.Context) {
+// 	refNumber := c.Param("refNumber")
 
+// 	var request models.BranchManagerFloatRequest
+
+// 	// Find the float request by refNumber
+// 	if err := initializers.DB.Where("ID = ?", refNumber).First(&request).Error; err != nil {
+// 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
+// 		return
+// 	}
+
+// 	// Approve the float request
+// 	request.Status = "approved"
+// 	if err := initializers.DB.Save(&request).Error; err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
+// 		return
+// 	}
+
+//		c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
+//	}
+func AgentAdminUpdateFloatRequest(c *gin.Context) {
+	// Extract the "id" parameter from the URL
+	requestId := c.Param("id")
+
+	// Fetch the float request from the database
 	var request models.BranchManagerFloatRequest
-
-	// Find the float request by refNumber
-	if err := initializers.DB.Where("ID = ?", refNumber).First(&request).Error; err != nil {
+	if err := initializers.DB.Where("ID = ?", requestId).First(&request).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Float request not found"})
 		return
 	}
 
-	// Approve the float request
-	request.Status = "approved"
-	if err := initializers.DB.Save(&request).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to approve float request"})
+	// Parse incoming JSON payload
+	var updateData struct {
+		Status string  `json:"status" binding:"required"` // Ensure status is provided
+		Amount float64 `json:"amount" binding:"required"`
+	}
+	if err := c.ShouldBindJSON(&updateData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'status' is required."})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Float request approved", "data": request})
+	// Update the status
+	request.Status = updateData.Status
+	request.Amount = updateData.Amount
+
+	// Save the updated record
+	if err := initializers.DB.Save(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update float request"})
+		return
+	}
+
+	// Return success response
+	c.JSON(http.StatusOK, gin.H{"message": "Float request updated successfully", "data": request})
+}
+
+func AgentAdminUpdateFloatLedger(c *gin.Context) {
+	// Extract the "id" parameter from the URL
+	requestId := c.Param("id")
+
+	// Fetch the float ledger record from the database
+	var request models.BranchManagerFloatLedger
+	if err := initializers.DB.Where("ID = ?", requestId).First(&request).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Float ledger not found"})
+		return
+	}
+
+	// Parse incoming JSON payload
+	var updateData struct {
+		Status string  `json:"status" binding:"required"` // Ensure status is provided
+		Amount float64 `json:"amount" binding:"required"`
+	}
+	if err := c.ShouldBindJSON(&updateData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'status' is required."})
+		return
+	}
+
+	// Update the status
+	request.Status = updateData.Status
+	request.Amount = updateData.Amount
+
+	// Save the updated record
+	if err := initializers.DB.Save(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update float ledger"})
+		return
+	}
+
+	// Return success response
+	c.JSON(http.StatusOK, gin.H{"message": "Float ledger updated successfully", "data": request})
 }
 
 // GetAgentAdminFloatRequests fetches all float requests for the Agent Admin.

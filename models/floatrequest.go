@@ -13,11 +13,13 @@ type TillOperatorFloatRequest struct {
 }
 
 type BranchManagerFloatRequest struct {
-	ID        string    `gorm:"primaryKey" json:"id"`
-	Amount    int       `json:"amount" gorm:"not null"`
-	Status    string    `json:"status" gorm:"not null"` // e.g., "Allocated", "Pending", "Failed"
-	CreatedAt time.Time `json:"createdAt"`
-	Branch    string    `json:"branch" gorm:"not null"` // e.g., "Branch 1"
+	ID          string    `gorm:"primaryKey" json:"id"`
+	Amount      float64   `json:"amount" gorm:"not null"`
+	Description string    `json:"description" gorm:"not null"`
+	Status      string    `json:"status" gorm:"not null"` // e.g., "Allocated", "Pending", "Failed"
+	CreatedAt   time.Time `json:"createdAt"`
+	Branch      string    `json:"branch" gorm:"not null"` // e.g., "Till 1"
+	LedgerId    string    `json:"ledgerId" gorm:"not null"`
 }
 
 type AdminAgentFloatRequest struct {
