@@ -40,6 +40,10 @@ func MigrateDB() {
 		log.Printf("Error migrating FloatRequest Database: %v", err)
 	}
 
+	if err := DB.AutoMigrate(&models.AgentAdminFloatLedger{}); err != nil {
+		log.Printf("Error migrating FloatRequest Database: %v", err)
+	}
+
 	if err := DB.AutoMigrate(&models.AdminAgentFloatRequest{}); err != nil {
 		log.Printf("Error migrating FloatRequest Database: %v", err)
 	}
