@@ -127,6 +127,31 @@ func BranchManagerRequestFloat(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Float request created successfully", "data": request})
 }
+func AddBranchManagerFloatLedger(c *gin.Context) {
+	var request models.BranchManagerFloatLedger
+
+	// Bind JSON request to the FloatRequest model
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	id := uuid.New().String()
+
+	// Set default status to "Pending"
+	request.Status = "pending"
+	// request.Balance = 0
+	request.ID = id
+	// request.Till = "Till 1"
+
+	// Save request to database
+	if err := initializers.DB.Create(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create float ledger"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Float ledger record created successfully", "data": request})
+}
 
 // BranchManagerApproveFloat handles the approval of a float request by Branch Manager.
 // func BranchManagerApproveFloatRequest(c *gin.Context) {
