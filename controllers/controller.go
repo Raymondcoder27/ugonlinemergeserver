@@ -115,8 +115,13 @@ func BranchManagerRequestFloat(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	id := uuid.New().String()
 
-	// Set default status to "pending"
+	// Set default status to "Pending"
+	// request.Balance = 0
+	request.ID = id
+
+	// Set default status to "Pending"
 	request.Status = "pending"
 
 	// Save request to database
@@ -127,6 +132,7 @@ func BranchManagerRequestFloat(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Float request created successfully", "data": request})
 }
+
 func AddBranchManagerFloatLedger(c *gin.Context) {
 	var request models.BranchManagerFloatLedger
 

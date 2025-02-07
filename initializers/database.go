@@ -49,6 +49,10 @@ func MigrateDB() {
 		log.Printf("Error migrating ServiceRequest Database: %v", err)
 	}
 
+	if err := DB.AutoMigrate(&models.BranchManagerFloatLedger{}); err != nil {
+		log.Printf("Error migrating ServiceRequest Database: %v", err)
+	}
+
 	// Migrate the Post model
 	// if err := DB.AutoMigrate(&models.Post{}); err != nil {
 	// 	log.Printf("Error migrating Post Database: %v", err)
