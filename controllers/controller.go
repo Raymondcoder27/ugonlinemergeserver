@@ -380,7 +380,7 @@ func GetTillOperatorFloatRequests(c *gin.Context) {
 	var requests []models.TillOperatorFloatRequest
 
 	// Fetch all float requests for the branch manager
-	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	if err := initializers.DB.Find(&requests).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
 		return
 	}
