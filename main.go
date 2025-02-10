@@ -60,7 +60,8 @@ func main() {
 		branchManager := authGroup.Group("/branch-manager")
 		{
 			branchManager.POST("/request-float", controllers.BranchManagerRequestFloat)
-			tillOperator.POST("/add-till", controllers.AddTill)
+			branchManager.POST("/add-till", controllers.AddTill)
+			branchManager.GET("/tills", controllers.GetTills)
 			branchManager.POST("/add-float-ledger-record", controllers.AddBranchManagerFloatLedger)
 			// branchManager.POST("/approve-float-request", controllers.BranchManagerApproveFloatRequest)
 			branchManager.PUT("/update-float-request/:id", controllers.BranchManagerUpdateFloatRequest)

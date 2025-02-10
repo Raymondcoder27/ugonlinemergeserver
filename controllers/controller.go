@@ -726,6 +726,18 @@ func GetBranches(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": requests})
 }
 
+func GetTills(c *gin.Context) {
+	var requests []models.Till
+	// Fetch all float requests for the agent admin
+	if err := initializers.DB.Find(&requests).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch tills"})
+		return
+	}
+
+	// c.JSON(http.StatusOK, gin.H{"data": requests})
+	c.JSON(http.StatusOK, gin.H{"data": requests})
+}
+
 // func AssignBranchManager(c *gin.Context) {
 // 	var request models.AssignBranchManager
 
