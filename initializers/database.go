@@ -79,6 +79,10 @@ func MigrateDB() {
 		log.Printf("Error migrating Till Database: %v", err)
 	}
 
+	if err := DB.AutoMigrate(&models.BranchBackofficeAccount{}); err != nil {
+		log.Printf("Error migrating branch manager backoffice account Database: %v", err)
+	}
+
 	// Migrate the User model
 	if err := DB.AutoMigrate(&models.BackofficeAccount{}); err != nil {
 		log.Printf("Error migrating User Database: %v", err)

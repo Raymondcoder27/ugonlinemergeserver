@@ -73,12 +73,15 @@ func main() {
 			branchManager.GET("/float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)
 			branchManager.GET("/float-ledgers", controllers.GetBranchManagerFloatLedger)
 			branchManager.GET("/till-operator-accounts", controllers.GetTillOperatorAccounts)
+			branchManager.POST("/create-till-operator-account", controllers.CreateTillOperatorAccount)
+			branchManager.GET("/back-office-accounts", controllers.GetBranchBackOfficeAccounts)
+			branchManager.POST("/create-back-office-account", controllers.CreateBranchBackOfficeAccount)
+
 			// branchManager.GET("/float-ledgers/:refNumber", controllers.GetBranchManagerFloatLedger)
 			// branchManager.PUT("/float-ledgers/:refNumber", controllers.UpdateBranchManagerFloatLedger)
 			// branchManager.GET("/service-requests", controllers.GetBranchManagerServiceRequests)
 			// branchManager.GET("/service-requests/:refNumber", controllers.GetBranchManagerServiceRequest)
 			// branchManager.DELETE("/till/:refNumber", controllers.DeleteTill)
-
 		}
 
 		// Agent Admin Dashboard

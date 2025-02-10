@@ -8,10 +8,12 @@ type TillOperator struct {
 	// Username string `json:"username" gorm:"unique;not null"`
 	FirstName string `json:"firstName" gorm:"not null"`
 	LastName  string `json:"lastName" gorm:"not null"`
-	FullName  string `json:"fullName" gorm:"not null"`
-	Role      string `json:"role" gorm:"not null"`   // e.g., "Manager"
-	Till      string `json:"till" gorm:"not null"`   // e.g., "Till 1"
-	Status    string `json:"status" gorm:"not null"` // e.g., "Active", "Inactive"
+	// FullName  string `json:"fullName" gorm:"not null"`
+	Email  string  `json:"email" gorm:"not null"`
+	Phone  float64 `json:"phone" gorm:"not null"`
+	Role   string  `json:"role" gorm:"not null"`   // e.g., "Manager"
+	Till   string  `json:"till" gorm:"not null"`   // e.g., "Till 1"
+	Status string  `json:"status" gorm:"not null"` // e.g., "Active", "Inactive"
 }
 
 type BranchManagerFloatLedger struct {
@@ -34,6 +36,19 @@ type BackofficeAccount struct {
 	Email    string `json:"email" gorm:"unique;"`
 	Role     string `json:"role" gorm:""`   // e.g., "Administrator", "Manager"
 	Till     string `json:"till" gorm:""`   // e.g., "Till 1"
+	Status   string `json:"status" gorm:""` // e.g., "Active", "Inactive"
+}
+
+// BackofficeAccount represents a user who manages back-office operations.
+type BranchBackofficeAccount struct {
+	ID        string `json:"id" gorm:"primaryKey"`
+	FirstName string `json:"firstName" gorm:"unique;"`
+	// MiddleName  string `json:"middleName" gorm:""`
+	LastName string `json:"lastName" gorm:""`
+	Phone    string `json:"phone" gorm:"unique;"`
+	Email    string `json:"email" gorm:"unique;"`
+	Role     string `json:"role" gorm:""`   // e.g., "Administrator", "Manager"
+	Branch   string `json:"branch" gorm:""` // e.g., "Till 1"
 	Status   string `json:"status" gorm:""` // e.g., "Active", "Inactive"
 }
 
