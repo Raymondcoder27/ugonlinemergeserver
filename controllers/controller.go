@@ -843,6 +843,18 @@ func GetBranchManagerAccounts(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": requests})
 }
 
+func GetTillOperatorAccounts(c *gin.Context) {
+	var requests []models.TillOperator
+
+	// Fetch all float requests for the agent admin
+	if err := initializers.DB.Find(&requests).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch till operator"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": requests})
+}
+
 // GetAgentAdminFloatRequest fetches a specific float request by reference number.
 func GetAgentAdminFloatRequest(c *gin.Context) {
 	refNumber := c.Param("refNumber")

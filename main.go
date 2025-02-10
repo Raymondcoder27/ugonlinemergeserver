@@ -72,6 +72,7 @@ func main() {
 			// branchManager.GET("/float-requests", controllers.GetTillOperatorFloatRequests)
 			branchManager.GET("/float-requests/:refNumber", controllers.GetBranchManagerFloatRequest)
 			branchManager.GET("/float-ledgers", controllers.GetBranchManagerFloatLedger)
+			branchManager.GET("/till-operator-accounts", controllers.GetTillOperatorAccounts)
 			// branchManager.GET("/float-ledgers/:refNumber", controllers.GetBranchManagerFloatLedger)
 			// branchManager.PUT("/float-ledgers/:refNumber", controllers.UpdateBranchManagerFloatLedger)
 			// branchManager.GET("/service-requests", controllers.GetBranchManagerServiceRequests)
