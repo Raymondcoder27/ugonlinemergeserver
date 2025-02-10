@@ -9,11 +9,11 @@ type TillOperator struct {
 	FirstName string `json:"firstName" gorm:"not null"`
 	LastName  string `json:"lastName" gorm:"not null"`
 	// FullName  string `json:"fullName" gorm:"not null"`
-	Email  string  `json:"email" gorm:"not null"`
-	Phone  float64 `json:"phone" gorm:"not null"`
-	Role   string  `json:"role" gorm:"not null"`   // e.g., "Manager"
-	Till   string  `json:"till" gorm:"not null"`   // e.g., "Till 1"
-	Status string  `json:"status" gorm:"not null"` // e.g., "Active", "Inactive"
+	Email  string `json:"email" gorm:"not null"`
+	Phone  string `json:"phone" gorm:"not null"`
+	Role   string `json:"role" gorm:"not null"`   // e.g., "Manager"
+	Till   string `json:"till" gorm:"not null"`   // e.g., "Till 1"
+	Status string `json:"status" gorm:"not null"` // e.g., "Active", "Inactive"
 }
 
 type BranchManagerFloatLedger struct {
