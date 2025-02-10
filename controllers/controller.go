@@ -145,7 +145,7 @@ func AddBranchManagerFloatLedger(c *gin.Context) {
 	id := uuid.New().String()
 
 	// Set default status to "Pending"
-	request.Status = "pending"
+	// request.Status = "pending"
 	// request.Balance = 0
 	request.ID = id
 	// request.Till = "Till 1"
@@ -171,7 +171,7 @@ func AddAgentAdminFloatLedger(c *gin.Context) {
 	id := uuid.New().String()
 
 	// Set default status to "Pending"
-	request.Status = "pending"
+	// request.Status = "pending"
 	// request.Balance = 0
 	request.ID = id
 	// request.Till = "Till 1"
@@ -342,7 +342,7 @@ func BranchManagerUpdateFloatLedger(c *gin.Context) {
 		Amount float64 `json:"amount" binding:"required"`
 	}
 	if err := c.ShouldBindJSON(&updateData); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'status' is required."})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'amount' is required."})
 		return
 	}
 
@@ -392,6 +392,40 @@ func CreateBranch(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Branch created successfully", "data": request})
+}
+
+func AddTill(c *gin.Context) {
+	var request models.Branch
+
+	// Bind JSON request to the FloatRequest model
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// id := uuid.New().String()
+	id := uuid.New().String()
+
+	// Set default status to "Pending"
+	// request.Status = "pending"
+	// request.Till = "Till 1"
+
+	// Save request to database
+	// if err := initializers.DB.Create(&request).Error; err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create branch"})
+	// 	return
+	// }
+
+	// save request to database replacing the id with the generated uuid
+	if err := initializers.DB.Create(&models.Till{
+		ID:   id,
+		Name: request.Name,
+	}).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Till created successfully", "data": request})
 }
 
 // agentAdmin.GET("/create-back-office-account", controllers.CreateBackOfficeAccount)
@@ -493,7 +527,7 @@ func GetBranchManagerFloatRequests(c *gin.Context) {
 	var requests []models.BranchManagerFloatRequest
 
 	// Fetch all float requests for the branch manager
-	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	if err := initializers.DB.Find(&requests).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
 		return
 	}
@@ -515,6 +549,37 @@ func GetTillOperatorFloatRequests(c *gin.Context) {
 
 func GetTillOperatorFloatLedger(c *gin.Context) {
 	var requests []models.TillOperatorFloatLedger
+
+	// Fetch all float requests for the branch manager
+	// if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
+	// 	return
+	// }
+	if err := initializers.DB.Find(&requests).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": requests})
+}
+
+func GetBranchManagerFloatLedger(c *gin.Context) {
+	var requests []models.BranchManagerFloatLedger
+
+	// Fetch all float requests for the branch manager
+	// if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
+	// 	return
+	// }
+	if err := initializers.DB.Find(&requests).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": requests})
+}
+func GetAgentAdminFloatLedger(c *gin.Context) {
+	var requests []models.AgentAdminFloatLedger
 
 	// Fetch all float requests for the branch manager
 	// if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
@@ -613,8 +678,8 @@ func AgentAdminUpdateFloatLedger(c *gin.Context) {
 
 	// Parse incoming JSON payload
 	var updateData struct {
-		Status string  `json:"status" binding:"required"` // Ensure status is provided
-		Amount float64 `json:"amount" binding:"required"`
+		Status string `json:"status" binding:"required"` // Ensure status is provided
+		// Amount float64 `json:"amount" binding:"required"`
 	}
 	if err := c.ShouldBindJSON(&updateData); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'status' is required."})
@@ -623,7 +688,7 @@ func AgentAdminUpdateFloatLedger(c *gin.Context) {
 
 	// Update the status
 	request.Status = updateData.Status
-	request.Amount = updateData.Amount
+	// request.Amount = updateData.Amount
 
 	// Save the updated record
 	if err := initializers.DB.Save(&request).Error; err != nil {
@@ -640,7 +705,7 @@ func GetAgentAdminFloatRequests(c *gin.Context) {
 	var requests []models.AdminAgentFloatRequest
 
 	// Fetch all float requests for the agent admin
-	if err := initializers.DB.Where("status = ?", "pending").Find(&requests).Error; err != nil {
+	if err := initializers.DB.Find(&requests).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch float requests"})
 		return
 	}
