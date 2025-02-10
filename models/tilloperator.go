@@ -68,3 +68,8 @@ type TillOperatorFloatLedger struct {
 	CreatedAt   time.Time `json:"createdAt" gorm:"autoCreateTime"`
 	UpdatedAt   time.Time `json:"updatedAt" gorm:"autoUpdateTime"`
 }
+
+type AssignTillOperator struct {
+	TIllID         string `json:"tillId" gorm:""`
+	TillOperatorID string `json:"tillOperatorId" gorm:""`
+}
