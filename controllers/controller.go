@@ -809,6 +809,27 @@ func AllocateBranchManager(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Branch manager assigned successfully", "data": request})
 }
+func AssignTillOperator(c *gin.Context) {
+	var request models.AllocateBranchManager
+
+	// Bind JSON request to the FloatRequest model
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Set default status to "Pending"
+	// request.Status = "pending"
+	// request.Till = "Till 1"
+
+	// Save request to database
+	if err := initializers.DB.Create(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create till operator assignment"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Branch manager assigned successfully", "data": request})
+}
 
 func GetBranchManagerAccounts(c *gin.Context) {
 	var requests []models.BranchManagers
