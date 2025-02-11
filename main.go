@@ -100,8 +100,8 @@ func main() {
 			agentAdmin.GET("/branches", controllers.GetBranches)
 			agentAdmin.GET("/branch-manager-accounts", controllers.GetBranchManagerAccounts)
 			agentAdmin.PUT("/update-float-request/:id", controllers.AgentAdminUpdateFloatRequest)
-			// branchManager.PUT("/approve-float-request/{id}", controllers.BranchManagerApproveFloatRequest)
 			agentAdmin.PUT("/update-float-ledger/:id", controllers.AgentAdminUpdateFloatLedger)
+			agentAdmin.DELETE("/close-branch/:id", controllers.CloseBranch)
 		}
 	}
 

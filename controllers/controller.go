@@ -393,6 +393,30 @@ func CreateBranch(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Branch created successfully", "data": request})
 }
+func CloseBranch(c *gin.Context) {
+	branchID := c.Param("id")
+
+	// Check if the branch exists
+	var branch models.Branch
+	if err := initializers.DB.First(&branch, "id = ?", branchID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Branch not found"})
+		return
+	}
+
+	// Hard Delete (Permanently Delete from DB)
+	if err := initializers.DB.Delete(&branch).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to close branch"})
+		return
+	}
+
+	// Soft Delete (Optional: If using GORM soft deletes)
+	// if err := initializers.DB.Model(&branch).Update("status", "closed").Error; err != nil {
+	//     c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to close branch"})
+	//     return
+	// }
+
+	c.JSON(http.StatusOK, gin.H{"message": "Branch closed successfully"})
+}
 
 func AddTill(c *gin.Context) {
 	var request models.Branch
