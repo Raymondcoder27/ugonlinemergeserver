@@ -76,7 +76,7 @@ func main() {
 			branchManager.POST("/create-till-operator-account", controllers.CreateTillOperatorAccount)
 			branchManager.GET("/back-office-accounts", controllers.GetBranchBackOfficeAccounts)
 			branchManager.POST("/create-back-office-account", controllers.CreateBranchBackOfficeAccount)
-
+			branchManager.DELETE("/close-till/:id", controllers.CloseTill)
 			// branchManager.GET("/float-ledgers/:refNumber", controllers.GetBranchManagerFloatLedger)
 			// branchManager.PUT("/float-ledgers/:refNumber", controllers.UpdateBranchManagerFloatLedger)
 			// branchManager.GET("/service-requests", controllers.GetBranchManagerServiceRequests)
