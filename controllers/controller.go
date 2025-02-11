@@ -266,7 +266,7 @@ func BranchManagerUpdateFloatRequest(c *gin.Context) {
 		Amount float64 `json:"amount" binding:"required"`
 	}
 	if err := c.ShouldBindJSON(&updateData); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'status' is required."})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'status' or 'amount' is required."})
 		return
 	}
 
@@ -767,8 +767,8 @@ func AgentAdminUpdateFloatLedger(c *gin.Context) {
 
 	// Parse incoming JSON payload
 	var updateData struct {
-		Status string `json:"status" binding:"required"` // Ensure status is provided
-		// Amount float64 `json:"amount" binding:"required"`
+		Status string  `json:"status" binding:"required"` // Ensure status is provided
+		Amount float64 `json:"amount" binding:"required"`
 	}
 	if err := c.ShouldBindJSON(&updateData); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload. 'status' is required."})
@@ -777,7 +777,7 @@ func AgentAdminUpdateFloatLedger(c *gin.Context) {
 
 	// Update the status
 	request.Status = updateData.Status
-	// request.Amount = updateData.Amount
+	request.Amount = updateData.Amount
 
 	// Save the updated record
 	if err := initializers.DB.Save(&request).Error; err != nil {
